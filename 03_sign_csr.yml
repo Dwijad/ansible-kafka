@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars_prompt:
+  - name: target_host
+    prompt: Please enter IP address  or domain name of admin node. (e.g. sandbox-kfk-admin)
+    private: no
+
+  tasks:
+    - add_host:
+        name: "{{ target_host }}"
+        groups: dynamically_created_hosts
+
+- hosts: dynamically_created_hosts
+  become: true
+  vars_prompt:
+
+  - name: cert_input_file
+    prompt: Please enter  broker certificate input file(e.g bro1-cert-sign-request)
+    private: no
+
+  - name: cert_output_file
+    prompt: Please enter  broker certificate output file(e.g bro1-cert-signed)
+    private: no
+
+  - name: kafkaNode
+    prompt: Please enter  broker's FQDN(e.e sandbox-kfk-bro1.tuxlab.org.in)
+    private: no
+
+  roles:
+    - sign-csr
+  vars:
+    - doc_root: ~/ansible-kafka

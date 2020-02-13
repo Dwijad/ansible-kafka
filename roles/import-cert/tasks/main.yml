@@ -1,0 +1,36 @@
+---
+
+- name: Import truststore certificates in broker
+  become_user: "{{ kafkaUser }}"
+  shell: |
+     {{ keytool_command }} -keystore {{ truststore_file }} \
+     -alias {{ alias }} \
+     -import -file {{ cert_file  }} \
+     -storepass  "{{ password }}" \
+     -keypass "{{ password }}" \
+     -noprompt
+  args:
+     chdir: "{{ CSR_location }}"
+
+- name: Import keystore certificates in broker
+  become_user: "{{ kafkaUser }}"
+  shell: |
+     {{ keytool_command }} -keystore {{ keystore_file }} \
+     -alias {{ alias }} \
+     -import -file {{ cert_file  }} \
+     -storepass  "{{ password }}" \
+     -keypass "{{ password }}" \
+     -noprompt
+  args:
+     chdir: "{{ CSR_location }}"
+
+- name: Import signed certificates in broker
+  become_user: "{{ kafkaUser }}"
+  shell: |
+     {{ keytool_command }} -keystore {{ keystore_file }} \
+     -import -file {{ signed_cert  }} \
+     -storepass  "{{ password }}" \
+     -keypass "{{ password }}" \
+     -noprompt
+  args:
+     chdir: "{{ CSR_location }}" 

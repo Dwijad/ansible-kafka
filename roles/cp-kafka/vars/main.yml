@@ -1,0 +1,66 @@
+---
+
+kafka_download_url: http://packages.confluent.io/archive
+kafka_version: 5.2
+kafka_major_version: confluent-5.2.1
+kafka_minor_version: 2.12
+kafka_installation_path: /u01/cnfkp
+kafka_download_location: /u01/cnfkp
+kafka_moved_folder_name: confluent-kfk
+kafka_data_log_dir: /u01/cnfkp/confluent-kfk/data/kafka-logs
+kafka_server_log_dir: /u01/cnfkp/confluent-kfk/logs
+
+
+kafkaGroup: kfk
+kafkaUser: kfkmgr
+kafkaGroupId: 7000
+kafkaUserId: 7000
+
+prometheus_folder: prometheus
+prometheus_download_url: https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.3.1
+prometheus_config_url: https://raw.githubusercontent.com/prometheus/jmx_exporter/master/example_configs
+jolokia_folder: jolokia
+jolokia_download_url: https://search.maven.org/remotecontent?filepath=org/jolokia/jolokia-jvm/1.6.2/jolokia-jvm-1.6.2-agent.jar
+prometheus_jar_file: jmx_prometheus_javaagent-0.3.1.jar
+jolokia_agent_jar: jolokia-agent.jar
+prometheus_config_file: kafka-0-8-2.yml
+jetty_port: 8080
+jolokia_port: 8778
+
+listeners_type_1: SSL
+ssl_port: 9093
+ssl_keystore_location: /u01/cnfkp/confluent-kfk/etc/ssl/kafka.server.keystore.jks
+ssl_keystore_password: MyServerPassword123
+ssl_key_password: MyServerPassword123
+ssl_truststore_location: /u01/cnfkp/confluent-kfk/etc/ssl/kafka.server.truststore.jks
+ssl_truststore_password: MyServerPassword123
+security_inter_broker_protocol: SSL
+ssl_endpoint_identification_algorithm:
+ssl_client_auth: required
+advertised_port: 9093
+num_network_threads: 3
+num_io_threads: 8
+socket_send_buffer_bytes: 102400
+socket_receive_buffer_bytes: 102400
+socket_request_max_bytes: 104857600
+log_dirs: /u01/cnfkp/confluent-kfk/data/kafka-logs
+num_partitions: 1
+num_recovery_threads_per_data_dir: 1
+offsets_topic_replication_factor: 1
+transaction_state_log_replication_factor: 1
+transaction_state_log_min_isr: 1
+log_retention_hours: 168
+log_segment_bytes: 1073741824
+log_retention_check_interval_ms: 300000
+zookeeper_host_1: sandbox-kfk-zk1
+zookeeper_port_1: 2181
+zookeeper_host_2: sandbox-kfk-zk2
+zookeeper_port_2: 2181
+zookeeper_host_3: sandbox-kfk-zk3
+zookeeper_port_3: 2181
+zookeeper_connection_timeout_ms: 6000
+confluent_support_metrics_enable: true
+confluent_support_customer_id: anonymous
+group_initial_rebalance_delay_ms: 0
+delete_topic_enable: true
+

@@ -1,0 +1,30 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars_prompt:
+  - name: target_host
+    prompt: Please enter IP address or domain name of broker (e.g. sandbox-kfk-bro1)
+    private: no
+ 
+  tasks:
+    - add_host:
+        name: "{{ target_host }}"
+        groups: dynamically_created_hosts
+ 
+- hosts: dynamically_created_hosts
+  become: true
+  vars_prompt:
+
+  - name: ca_subject_broker
+    prompt: Enter FQDN of broker (e.g sandbox-kfk-bro1.tuxlab.org.in)
+    private: no
+
+  - name: cert_sign_request_file_name
+    prompt: Please enter broker certificate sign request(e.g bro1-cert-sign-request)
+    private: no
+
+  roles:
+    - generate-csr
+  vars:
+    - doc_root: ~/ansible-kafka
