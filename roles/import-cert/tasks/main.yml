@@ -34,3 +34,30 @@
      -noprompt
   args:
      chdir: "{{ CSR_location }}" 
+
+- name: Stop Kafka
+  become_user: "{{ kafkaUser }}"
+  shell: "{{ kfk_home }}/bin/kafka-server-stop"
+  ignore_errors: yes
+  args:
+    executable: /bin/bash
+
+- name: Pause for 10 seconds 
+  pause:
+     seconds: 10
+
+- name: Create custom kafka startup script
+  become_user: "{{ kafkaUser }}"
+  copy:
+    dest: "{{ kfk_home }}/bin/kfkstart.sh"
+    mode: 0755
+    content: |
+      {{ kfk_home  }}/bin/kafka-server-start -daemon {{ kfk_home }}/etc/kafka/server.properties
+
+
+- name: Start Kafka
+  become_user: "{{ kafkaUser }}"  
+  shell: "{{ kfk_home }}/bin/kfkstart.sh"
+  args:
+     executable: /bin/bash
+
